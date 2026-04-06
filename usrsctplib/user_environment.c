@@ -379,6 +379,29 @@ finish_random(void)
 {
 	return;
 }
+#elif defined(__Userspace_os_FreeRTOS)
+#include <stdlib.h>
+void
+init_random(void)
+{
+        srand(xTaskGetTickCount());
+        return;
+}
+void
+read_random(void *buf, size_t size)
+{
+        unsigned char *p = (unsigned char *)buf;
+        size_t i;
+        for (i = 0; i < size; i++) {
+                p[i] = (unsigned char)(rand() & 0xff);
+        }
+        return;
+}
+void
+finish_random(void)
+{
+        return;
+}
 #else
 #error "Unknown platform. Please provide platform specific RNG."
 #endif

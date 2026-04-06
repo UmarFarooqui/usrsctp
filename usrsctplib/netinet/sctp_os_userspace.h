@@ -1001,7 +1001,7 @@ int sctp_userspace_get_mtu_from_ifn(uint32_t if_index);
 
 #define AF_CONN 123
 struct sockaddr_conn {
-#ifdef HAVE_SCONN_LEN
+#if defined(HAVE_SCONN_LEN) || defined(HAVE_SA_LEN)
 	uint8_t sconn_len;
 	uint8_t sconn_family;
 #else
